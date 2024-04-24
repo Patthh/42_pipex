@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   b.c                                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pracksaw <student.42bangkok.com>           +#+  +:+       +#+        */
+/*   By: pracksaw <pracksaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 19:37:32 by pracksaw          #+#    #+#             */
-/*   Updated: 2024/04/06 19:37:34 by pracksaw         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:29:47 by pracksaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "pipex.h"
 
-int main(void)
+void    error_msg(char *msg)
 {
-    perror("fork failed");
+    perror(msg);
+    exit(EXIT_FAILURE);
 }
+void
