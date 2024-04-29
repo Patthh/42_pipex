@@ -1,37 +1,42 @@
-NAME = libftprintf.a
-SOURCES = *.c ###DON'T
-HDR = ft_printf.h
-OBJECTS = $(SOURCES:.c=.o)
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pracksaw <pracksaw@student.42bangkok.com>  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/04/06 12:44:17 by pracksaw          #+#    #+#              #
+#    Updated: 2024/04/29 16:54:26 by pracksaw         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = pipex
+SRCS = error.c  exec.c  main.c \
+ pipe.c  utils.c  utils2.c  utils3.c
+OBJS  = $(SRCS:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-
-# ANSI color codes
-CYAN := \033[0;36m
-RED := \033[0;31m
-YELLOW := \033[0;33m
-GREEN := \033[0;32m
-NC := \033[0m
+CFLAG = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS)
-	$(AR) -r $@ $^
-	@printf "$(GREEN)Successfully created $(NAME)$(NC)\n"
+$(NAME): $(OBJS)
+		$(CC) $(CFLAG) $(OBJS) -o $(NAME)
 
-%.o: %.c $(HDR)
-	$(CC) -c $(CFLAGS) $<
-	@printf "$(CYAN)Successfully compiled $<$(NC)\n"
+%.o: %.c $(HEADER_FILE)
+		$(CC) -c $(CFLAG) $^ -o $@
 
 clean:
-	rm -f $(OBJECTS)
-	@printf "$(RED)Successfully removed object files$(NC)\n"
+	rm -f $(OBJS)
 
-fclean: clean
+fclean:clean
 	rm -f $(NAME)
-	@printf "$(YELLOW)Successfully removed $(NAME)$(NC)\n"
 
+norm :
+	norminette
+
+valgrind : $(NAME)
+	valgrind --track-fds=yes --tool=memcheck --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME)
 re: fclean all
 
 .PHONY: all clean fclean re
-.phony : cc clean fclean NAME all re
