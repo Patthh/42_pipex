@@ -6,7 +6,7 @@
 /*   By: pracksaw <pracksaw@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 19:37:45 by pracksaw          #+#    #+#             */
-/*   Updated: 2024/04/29 16:51:10 by pracksaw         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:35:54 by pracksaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	check_args(int argc)
 		exit(EXIT_FAILURE);
 	}
 }
+
 int	main(int ac, char **av, char **envp)
 {
 	int		pipe_ends[2];

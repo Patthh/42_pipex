@@ -6,7 +6,7 @@
 #    By: pracksaw <pracksaw@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/06 12:44:17 by pracksaw          #+#    #+#              #
-#    Updated: 2024/04/29 16:54:26 by pracksaw         ###   ########.fr        #
+#    Updated: 2024/04/30 12:34:51 by pracksaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,8 @@ fclean:clean
 norm :
 	norminette
 
-valgrind : $(NAME)
-	valgrind --track-fds=yes --tool=memcheck --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME)
+#valgrind : $(NAME)
+#	valgrind --track-fds=yes --tool=memcheck --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME)
 re: fclean all
 
 .PHONY: all clean fclean re

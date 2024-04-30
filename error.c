@@ -6,7 +6,7 @@
 /*   By: pracksaw <pracksaw@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 19:37:32 by pracksaw          #+#    #+#             */
-/*   Updated: 2024/04/29 15:54:35 by pracksaw         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:34:34 by pracksaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	error_msg(char *msg, int *pipe_ends)
 	}
 	exit(EXIT_FAILURE);
 }
+
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
@@ -33,6 +34,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
+
 void	print_err(char *pre, char *file, int *pipe_ends)
 {
 	char	*errno_message;

@@ -6,7 +6,7 @@
 /*   By: pracksaw <pracksaw@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:52:23 by pracksaw          #+#    #+#             */
-/*   Updated: 2024/04/29 16:15:49 by pracksaw         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:35:49 by pracksaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*ft_strdup(const char *s)
 	ft_strlcpy(dup, s, len + 1);
 	return (dup);
 }
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*sub;
@@ -49,6 +50,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ft_strlcpy(sub, s + start, len + 1);
 	return (sub);
 }
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	len;

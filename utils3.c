@@ -6,7 +6,7 @@
 /*   By: pracksaw <pracksaw@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:52:23 by pracksaw          #+#    #+#             */
-/*   Updated: 2024/04/29 16:17:52 by pracksaw         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:35:34 by pracksaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
@@ -35,6 +36,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	ret = ft_strlcpy(dst, src, dstsize - i);
 	return (ret + i);
 }
+
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	size_t	i;

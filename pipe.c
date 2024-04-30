@@ -6,7 +6,7 @@
 /*   By: pracksaw <pracksaw@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 19:37:17 by pracksaw          #+#    #+#             */
-/*   Updated: 2024/04/29 17:18:05 by pracksaw         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:26:23 by pracksaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	t_tolower(int c)
 		c = c + 32;
 	return (c);
 }
+
 void	str_tolower(char *str)
 {
 	size_t	i;
@@ -29,6 +30,7 @@ void	str_tolower(char *str)
 		i++;
 	}
 }
+
 void	pipeline_left(char **argv, char **env, int *pipe_ends)
 {
 	int		infile_fd;
@@ -53,6 +55,7 @@ void	pipeline_left(char **argv, char **env, int *pipe_ends)
 		error_msg("close", pipe_ends);
 	call_cmd(argv[2], env);
 }
+
 void	pipeline_right(char **argv, char **env, int *pipe_ends)
 {
 	int		outfile_fd;
@@ -77,6 +80,7 @@ void	pipeline_right(char **argv, char **env, int *pipe_ends)
 		error_msg("close", pipe_ends);
 	call_cmd(argv[3], env);
 }
+
 void	parent(int pid1, int pid2, int *pipe_ends)
 {
 	int	child_status;
@@ -85,8 +89,8 @@ void	parent(int pid1, int pid2, int *pipe_ends)
 		error_msg("close", pipe_ends);
 	if (close(pipe_ends[1]) == -1)
 		error_msg("close", pipe_ends);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, &child_status, 0);
+	waitpid(pid1, NULL, WUNTRACED);
+	waitpid(pid2, &child_status, WUNTRACED);
 	if (WIFEXITED(child_status) && WEXITSTATUS(child_status) != EXIT_SUCCESS)
 		exit(EXIT_FAILURE);
 	else

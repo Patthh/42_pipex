@@ -6,7 +6,7 @@
 /*   By: pracksaw <pracksaw@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 19:38:04 by pracksaw          #+#    #+#             */
-/*   Updated: 2024/04/29 12:27:42 by pracksaw         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:41:49 by pracksaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	free_arr(char **array)
 	}
 	free(array);
 }
+
 static char	*get_env_values(const char *env_var_search, char **env)
 {
 	size_t	i;
@@ -51,54 +52,60 @@ static char	*get_env_values(const char *env_var_search, char **env)
 	}
 	return (NULL);
 }
-static char	*construct_cmd_path(const char *directory, const char *cmd_name)
+
+static char	*construct_path(const char *directory, const char *cmd_name)
 {
 	char	*temp;
-	char	*cmd_path;
+	char	*path;
 
 	temp = ft_strjoin(directory, "/");
 	if (!temp)
 		error_msg("malloc", NULL);
-	cmd_path = ft_strjoin(temp, cmd_name);
+	path = ft_strjoin(temp, cmd_name);
 	free(temp);
-	if (!cmd_path)
+	if (!path)
 		error_msg("malloc", NULL);
-	return (cmd_path);
+	return (path);
 }
-static char	*get_cmd_path(char *cmd_name, char **env)
+
+static char	*get_path(char *cmd_name, char **env)
 {
 	size_t	i;
 	char	**directories;
-	char	*cmd_path;
+	char	*path;
 
 	i = 0;
+	if (cmd_name[0] == '/')
+		if (access (cmd_name, F_OK | X_OK) == 0)
+			return (ft_strdup(cmd_name));
 	directories = ft_split(get_env_values("PATH", env), ':');
 	if (!directories)
 		error_msg("malloc", NULL);
 	while (directories[i])
 	{
-		cmd_path = construct_cmd_path(directories[i], cmd_name);
-		if (access(cmd_path, F_OK | X_OK) == 0)
+		path = construct_path(directories[i], cmd_name);
+		if (access(path, F_OK | X_OK) == 0)
 		{
 			free_arr(directories);
-			return (cmd_path);
+			return (path);
 		}
-		free(cmd_path);
+		free(path);
 		i++;
 	}
 	free_arr(directories);
 	return (NULL);
 }
+
 void	call_cmd(char *cmd, char *env[])
 {
 	char	**cmd_args;
-	char	*cmd_path;
+	char	*path;
 
 	cmd_args = ft_split(cmd, ' ');
 	if (!cmd_args)
 		error_msg("malloc", NULL);
-	cmd_path = get_cmd_path(cmd_args[0], env);
-	if (!cmd_path)
+	path = get_path(cmd_args[0], env);
+	if (!path)
 	{
 		ft_putstr_fd("pipex: command not found: ", STDERR_FILENO);
 		ft_putstr_fd(cmd_args[0], STDERR_FILENO);
@@ -106,11 +113,10 @@ void	call_cmd(char *cmd, char *env[])
 		free_arr(cmd_args);
 		exit(EXIT_FAILURE);
 	}
-	if (execve(cmd_path, cmd_args, env) == -1)
+	if (execve(path, cmd_args, env) == -1)
 	{
-		free(cmd_path);
+		free(path);
 		free_arr(cmd_args);
 		error_msg("execve", NULL);
 	}
 }
-
